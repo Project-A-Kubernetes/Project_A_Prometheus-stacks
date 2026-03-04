@@ -46,14 +46,19 @@ This connected my argocd repo server to my github repo (over HTTPS) as the only 
     - Resolved pod issues caused by PVs stuck in the Deleting state.
 
 ## How to run
-After applying the terraform repository eks and other resources running then you apply this to the cluster the add this repo url to the "argocd repo" 
+After applying the terraform repository eks and other resources running, then you apply this to the cluster by adding this repository url to the "argocd repo add " 
 example :
 ```
-argocd repo add https://prometheus-community.github.io/helm-charts --type helm 
-# for the prometheus stacks and for the installation of storageclasss 
-# clone the repo and create your github-app from settings/github-app
+#For the installation of storageclasss
+# please clone the repo and create your github-app from settings/github-app
 argocd repo add https://github.com/Project-A-KubernetesProject_A_Prometheus-stacks.git \
   --github-app-id APP_ID \
   --github-app-installation-id INSTALLATION_ID \
   --github-app-private-key-path PRIVATE_KEY_PATH
+
+---
+argocd repo add https://prometheus-community.github.io/helm-charts --type helm 
+# for the prometheus stacks. 
+
+#by doing this any other future configuration will be automated just with a little change to the repository
 ```
