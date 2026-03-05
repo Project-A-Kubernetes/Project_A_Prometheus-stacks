@@ -1,28 +1,32 @@
-apiVersion: argoproj.io/v1alpha1 
-kind: Application 
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
-  name: kube-prometheus-stack 
-  namespace: argocd 
+  name: kube-prometheus-stack
+  namespace: argocd
 spec:
-  project: default 
-  sources:
-  - repoURL: "https://prometheus-community.github.io/helm-charts" 
+  project: default
+  source:
+    repoURL: "https://prometheus-community.github.io/helm-charts"
     chart: kube-prometheus-stack
     targetRevision: "82.2.1"
     helm:
       skipCrds: true
       valueFiles:
-        - stacks/value.yml
+        - stacks/value.yml  # relative path inside your Git repo
     directory:
       recurse: true
+  # values file is pulled from this Git repo
+  sources:
   - repoURL: "https://github.com/Project-A-Kubernetes/Project_A_Prometheus-stacks.git"
-    targetRevision: main 
-    path: "."
-
+    targetRevision: main
+    path: "."   # root of the repo where stacks/value.yml lives
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: monitor 
+    namespace: monitor
   syncPolicy:
     automated:
-      prune: true 
-      selfHeal: true 
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true         # auto-create the namespace if missing
+      - ServerSideApply=true         # ensures server-side apply for CRDs
