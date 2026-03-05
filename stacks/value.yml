@@ -1,31 +1,28 @@
-# configuring the helm chart value for my observability stack
-
-grafana: 
-  enabled: true 
+grafana:
+  enabled: true
   adminPassword: ""
   service:
-    type: ClusterIP 
+    type: ClusterIP
 
-prometheus: 
-  prometheusSpec: 
-    retention: 3d #should be increased to desired
-    storageSpec: 
-      volumeClaimTemplate: 
-        spec: 
-          storageClassName: gp3 #to be updated to gp3 #cheap and reduce infra cost
+prometheus:
+  prometheusSpec:
+    retention: 3d
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp3
           accessModes: ["ReadWriteOnce"]
-          resources: 
-            requests: 
-              storage: 1Gi # your size of storage or size 
-              
-alertmanager: 
-  alertmanagerSpec: 
-    storage: 
-      volumeClaimTemplate: 
-        spec: 
-          storageClassName: gp3 #to be updated to gp3 #cheap and reduce cost by using this type of storage 
+          resources:
+            requests:
+              storage: 1Gi
+
+alertmanager:
+  alertmanagerSpec:
+    storageSpec:   # <-- corrected key
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp3
           accessModes: ["ReadWriteOnce"]
-          resources: 
-            requests: 
-              storage: 1Gi  
-        
+          resources:
+            requests:
+              storage: 1Gi

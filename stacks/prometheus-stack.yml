@@ -8,15 +8,16 @@ spec:
   sources:
   - repoURL: "https://prometheus-community.github.io/helm-charts" 
     chart: kube-prometheus-stack
-    targetRevision: 82.2.1
+    targetRevision: "82.2.1"
     helm:
       skipCrds: true
       valueFiles:
-        - $values-repo/stacks/value.yml
-
+        - stacks/value.yml
+    directory:
+      recurse: true
   - repoURL: "https://github.com/Project-A-Kubernetes/Project_A_Prometheus-stacks.git"
     targetRevision: main 
-    ref: values-repo
+    path: "."
 
   destination:
     server: "https://kubernetes.default.svc"
