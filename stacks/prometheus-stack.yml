@@ -6,20 +6,14 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "https://prometheus-community.github.io/helm-charts"
-    chart: kube-prometheus-stack
-    targetRevision: "82.2.1"
-    helm:
-      skipCrds: true
-      valueFiles:
-        - stacks/value.yml  # relative path inside your Git repo
-    directory:
-      recurse: true
-  # values file is pulled from this Git repo
-  sources:
-  - repoURL: "https://github.com/Project-A-Kubernetes/Project_A_Prometheus-stacks.git"
+    repoURL: "https://github.com/Project-A-Kubernetes/Project_A_Prometheus-stacks.git"
+    path: "prometheus-stacks/kube-prometheus-stack"
     targetRevision: main
-    path: "."   # root of the repo where stacks/value.yml lives
+    chart: kube-prometheus-stack
+    helm:
+      valueFiles:
+        - ../stacks/value.yml  
+      skipCrds: true 
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitor
@@ -27,6 +21,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true         # auto-create the namespace if missing
-      - ServerSideApply=true         # ensures server-side apply for CRDs
