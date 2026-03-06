@@ -11,7 +11,7 @@ spec:
     targetRevision: main
     helm:
       valueFiles:
-        - value.yml
+        - "stacks/prometheus-stacks/charts/kube-prometheus-stack/value.yml"
       skipCrds: true 
   destination:
     server: "https://kubernetes.default.svc"
