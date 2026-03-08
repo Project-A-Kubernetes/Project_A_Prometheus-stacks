@@ -7,9 +7,9 @@ spec:
   project: default
 
   source:
-    repoURL: https://prometheus-community.github.io/helm-charts
-    chart: kube-prometheus-stack
-    targetRevision: 56.6.2
+    repoURL: "https://github.com/Project-A-Kubernetes/Project_A_STACKS_TOOLS.git"
+    targetRevision: main
+    path: stacks/
     helm:
       releaseName: kube-prometheus-stack
       valueFiles: 

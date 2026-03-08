@@ -1,0 +1,12 @@
+#prometheus-stack wrapper....
+
+apiVersion: v2
+name: kube-prometheus-stack-wrapper
+description: "Wrapper chart to deploy kube-prometheus-stack with custom production values"
+type: application
+version: 0.1.0
+appVersion: "56.6.2"  
+dependencies: 
+  - name: kube-prometheus-stack
+    version: 56.6.2
+    repository: https://prometheus-community.github.io/helm-charts
