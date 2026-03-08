@@ -1,0 +1,38 @@
+# Namespace configuration
+namespaceOverride: monitoring
+
+# Prometheus instances
+prometheus:
+  prometheusSpec:
+    replicas: 2
+    retention: 15d
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp3
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 1Gi #increase this to desire size
+    enableAdminAPI: false
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+
+# Alertmanager
+alertmanager:
+  alertmanagerSpec:
+    replicas: 2
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp3
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 1Gi
+grafana:
+  adminUser: admin
+  adminPassword: ""
+  service:
+    type: ClusterIP # you can use a loadbalancer here but i will use cluster ip
